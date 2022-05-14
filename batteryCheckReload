@@ -1,0 +1,31 @@
+#!/bin/bash
+
+warnLevels="50 25 10" #Send notifications when going below these levels
+extraWarn="7" #Constantly send notifications below these levels
+
+#Test for battery plug in
+[ -d /sys/class/power_supply/BAT0 ] && bat="BAT0"
+[ -d /sys/class/power_supply/BAT1 ] && bat="BAT1"
+bat="BAT1"
+prevBatCapacity="$( cat /sys/class/power_supply/$bat/capacity )"
+
+while [ "" == "" ]
+do
+	batStatus="$( cat /sys/class/power_supply/ACAD/online)"
+
+	batCapacity="$( cat /sys/class/power_supply/$bat/capacity )"
+	
+	if [ "$batStatus" != "1" ] 
+	then #Draining
+		for level in $warnLevels
+		do
+			[[ $batCapacity -le $level && $prevBatCapacity -gt $level ]] && notify-send -t 5000 Battery\ Level $batCapacity% && break
+		done
+		[[ $batCapacity -le $extraWarn ]] && notify-send -u critical Low\ Battery $batCapacity
+	fi
+	
+	prevBatCapacity=$batCapacity
+
+	sleep "$(qalc -t $batCapacity \^ 2 / 420)"m
+
+done

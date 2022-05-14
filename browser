@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "
+midori
+firefox
+surf
+w3m
+netsurf
+" | dmenu | bash

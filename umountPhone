@@ -1,0 +1,4 @@
+#!/bin/dash
+
+fusermount -u ~/myPhone
+rmdir ~/myPhone

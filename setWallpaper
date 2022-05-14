@@ -1,0 +1,36 @@
+#!/bin/bash
+
+while test $# -gt 0; do
+	case "$1" in
+		-r|--random)
+			mode="random"
+			shift;;
+		-s|--set)
+			mode="set"
+			shift
+			image=$1
+			shift;;
+		-h|--help)
+			echo "Wallpaper setter"
+			echo " "
+			echo "-r, --random   picks a random wallpaper"
+			echo "-s, --set      set wallpaper to image"
+			exit 0;;
+		*)
+			echo "unknown flag use --help for more info"
+			exit 1;;
+	esac
+done
+
+if [ $mode == "random" ]; then
+	feh --bg-fill -z ~/Wallpapers/*
+	exit 0
+fi
+
+echo $mode $image
+if [ $mode == "set" ]; then
+	feh --bg-fill $image
+	exit 0
+fi
+
+exit 0

@@ -1,0 +1,5 @@
+dunstctl set-paused true
+gromit-mpx &
+screenkey &
+obs
+dunstctl set-paused false

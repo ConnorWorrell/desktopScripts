@@ -1,0 +1,7 @@
+#!/bin/bash
+
+flameshotRunning="$(ps aux | grep -i "fl[ame]*shot" | wc -l)"
+
+flameshot gui &
+[ $flameshotRunning == "0" ] && flameshot &
+[ $flameshotRunning == "0" ] && sleep 1m && pkill flameshot

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#Get monitors that are currently connected:
+mons="$(xrandr | grep -i " connected" | awk '{print echo $1}')"
+monsdisc="$(xrandr | grep -i "disconnected" | awk '{print echo $1}')"
+
+#echo $monsdisc
+
+commandtorun="xrandr"
+for mon in $mons
+do
+
+    [ -z $prevmon ] && commandtorun="$commandtorun --output $mon --auto" && prevmon=$mon && continue
+
+    commandtorun="$commandtorun --output $mon --auto --left-of $prevmon"
+    prevmon=$mon
+
+done
+
+# Turn off disconnected monitors
+for mon in $monsdisc
+do
+    commandtorun="$commandtorun --output $mon --off"
+done
+
+echo $commandtorun
+#bash -c "$commandtorun"

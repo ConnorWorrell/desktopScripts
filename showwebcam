@@ -1,0 +1,1 @@
+camera=$(ls /dev | grep -i "video" | dmenu) && [ "$(echo $camera | cut -c1-5)" = "video" ] && mpv --demuxer-lavf-o=video_size=640x480,inputformat=h264 /dev/$camera --profile=low-latency

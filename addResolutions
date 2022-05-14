@@ -1,0 +1,5 @@
+#!/bin/bash
+
+xrandr --newmode "1024x576_60.00"   46.50  1024 1064 1160 1296  576 579 584 599 -hsync +vsync
+xrandr --addmode eDP1 "1024x576_60.00"
+#xrandr --output eDP1 --mode "1024x576_60.00"

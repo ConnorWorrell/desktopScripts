@@ -1,0 +1,19 @@
+#!/bin/dash
+
+internetConnection=$(ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3 | head -n 1` > /dev/null && echo ok || echo error)
+while [ "$internetConnection" = "error" ]
+do
+	echo "No internet connection"
+	sleep 10s
+	internetConnection=$(ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3 | head -n 1` > /dev/null && echo ok || echo error)
+done
+
+while [ "" = "" ]
+do
+	yay -Sy
+	pkill -RTMIN+6 dwmblocks	
+	sleep 1h 
+done
+
+
+notify-send "ran off the end of while loop"
