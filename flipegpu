@@ -1,0 +1,9 @@
+#!/bin/bash
+
+devices=0000:"$(lspci | grep -i "nvidia" | cut -d\  -f1-1 | head -n 1)"
+
+echo Unbinding $devices
+
+[ -d "~/.scripts/vfio-pci-bind" ] || git clone https://github.com/andre-richter/vfio-pci-bind.git ~/.scripts/vfio-pci-bind
+
+exec sudo bash ~/.scripts/vfio-pci-bind/vfio-pci-bind.sh "$devices"
