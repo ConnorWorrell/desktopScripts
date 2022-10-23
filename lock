@@ -67,6 +67,12 @@ then
 	exit 0
 fi 
 
+if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
+    swaylock -i ~/Wallpapers/$(ls ~/Wallpapers/ | shuf -n 1) &
+    disown
+    exit 0
+fi
+
 [ -d ~/.Wallpapers_cache ] || mkdir ~/.Wallpapers_cache
 [ -d ~/.Wallpapers_cache/LockScreens ] || mkdir ~/.Wallpapers_cache/LockScreens
 

@@ -22,15 +22,28 @@ while test $# -gt 0; do
 	esac
 done
 
+swayPid="$(pidof swaybg)"
 if [ $mode == "random" ]; then
-	feh --bg-fill -z ~/Wallpapers/*
-	exit 0
+    if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
+        swaybg -m fill -i ~/Wallpapers/$(ls ~/Wallpapers/ | shuf -n 1) &
+        disown
+        [ "$swayPID" == "" ] || ( sleep 2s && kill -9 $swayPid ) &
+    else
+        feh --bg-fill -z ~/Wallpapers/*
+        exit 0
+    fi
 fi
 
 echo $mode $image
 if [ $mode == "set" ]; then
-	feh --bg-fill $image
-	exit 0
+    if [$XDG_SESSION_TYPE == "wayland"]; then
+        swaybg -m fill -i $image &
+        disown
+        [ "$swayPID" == "" ] || ( sleep 2s kill -9 $swayPid ) &
+    else
+        feh --bg-fill $image
+        exit 0
+    fi
 fi
 
 exit 0
