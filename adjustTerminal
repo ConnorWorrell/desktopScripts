@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # Get screen size:
-X=$(xrandr --current | grep '*' | uniq | awk '{print $1}' | cut -d 'x' -f1)
-Y=$(xrandr --current | grep '*' | uniq | awk '{print $1}' | cut -d 'x' -f2)
+X=$(xrandr --current | grep '*' | uniq | awk '{print $1}' | cut -d 'x' -f1 | tail -1)
+Y=$(xrandr --current | grep '*' | uniq | awk '{print $1}' | cut -d 'x' -f2 | tail -1)
 
 fontSize=$(expr \( $Y + $X \) / 180 )
+echo $X $Y $fontSize
 
-st -f $(echo "Inconsolata:pixelsize=""$fontSize"":antialias=true:autohint=true:spacing=""0")
+st -f $(echo "Inconsolata:pixelsize=""$fontSize"":antialias=true:autohint=true:spacing=""0") -e fish
