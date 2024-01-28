@@ -1,7 +1,9 @@
 #!/bin/bash
 
-flameshotRunning="$(ps aux | grep -i "fl[ame]*shot" | wc -l)"
+#flameshotRunning="$(ps aux | grep -i "fl[ame]*shot" | wc -l)"
 
-flameshot gui &
-[ $flameshotRunning == "0" ] && flameshot &
-[ $flameshotRunning == "0" ] && sleep 1m && pkill flameshot
+#flameshot gui && [ $flameshotRunning == "0" ] && sleep 1m && pkill flameshot &
+#[ $flameshotRunning == "0" ] && flameshot &
+
+#slurp | grim -g - screenshot.png
+slurp | grim -g - - | wl-copy 
